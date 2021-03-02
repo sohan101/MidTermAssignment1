@@ -87,5 +87,10 @@ namespace MidTermAssignment1
 			}
 
 		}
+		public void PrintAccount()
+		{
+			Console.WriteLine("Account No:{0}\nAccount Name:{1}\nBalance:{2}", this.accountNo, this.accountName, this.balance);
+			this.address.PrintAddress();
+		}
 	}
 }

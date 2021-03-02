@@ -8,25 +8,35 @@ namespace MidTermAssignment1
 {
     class Bank
     {
-        public string bankName;
-        private Account[] accountArry;
-        private int index = 0;
-
-
-
-        public Account[] accounts
+        private string name;
+        private Account[] accounts;//1-* Relation
+        public Bank(string name, int size)
         {
-            get { return accountArry; }
-            set { accountArry = value; }
-        }
-
-
-        public Bank(string bankName, int size)
-        {
-            this.bankName = bankName;
+            this.name = name;
             accounts = new Account[size];
         }
+        public string Name
+        {
+            set { this.name = value; }
+            get { return this.name; }
+        }
+        public Account[] Accounts
+        {
+            set { this.accounts = value; }
+            get { return this.accounts; }
+        }
 
+        public void PrintAllAccounts()
+        {
+            for (int i = 0; i < accounts.Length; i++)
+            {
+                if (accounts[i] == null)
+                {
+                    continue;
+                }
+                accounts[i].PrintAccount();
+            }
+        }
         public void AddAccount(Account account)
         {
             for (int i = 0; i < accounts.Length; i++)
@@ -38,53 +48,62 @@ namespace MidTermAssignment1
                 }
             }
         }
+        public void SearchAccount(int accountNo)
+        {
+            int flag = 0;
+            for (int i = 0; i < accounts.Length; i++)
+            {
+                if (accounts[i] == null)
+                {
+                    continue;
+                }
+                else if (accounts[i].AccountNo == accountNo)
+                {
+                    accounts[i].PrintAccount();
+                    flag = 0;
+                    break;
+                }
+                else
+                {
+                    flag = 1;
 
-
+                }
+            }
+            if (flag == 1)
+                Console.WriteLine("Account Not Found");
+        }
 
         public void DeleteAccount(int accountNo)
         {
-
-            if (SearchAccount(accountNo) != null)
-            {
-                for (int j = this.index + 1; j < accounts.Length; j++)
-                {
-                    accounts[j - 1] = accounts[j];
-                }
-                accounts[accounts.Length - 1] = null;
-                Console.WriteLine("Acount Deleted");
-
-            }
-            else
-            {
-                Console.WriteLine("Acount not found");
-            }
-
-        }
-
-        public Account SearchAccount(int accountNo)
-        {
-            Account account = null;
             for (int i = 0; i < accounts.Length; i++)
             {
-                if (accounts[i].AccountNo == accountNo && accounts[i] != null)
+                if (accounts[i] == null)
                 {
-                    this.index = i; //For deleting purpse
-                    account = accounts[i];
+                    continue;
+                }
+                else if (accounts[i].AccountNo == accountNo)
+                {
+                    accounts[i] = null;
+                    for(int j = i; j < (accounts.Length - 1); j++)
+                        {
+                        accounts[j] = accounts[j + 1];
+                    }
+                    Console.WriteLine("Account Deleted");
                     break;
                 }
-            }
-            return account;
+                
         }
 
-
-        public void Transaction(int transType, double amount, params int[] accountNo)
+        public void Transaction(int transType, double amount, int accountsNo)
         {
-            Account[] account = new Account[2];
-            account[0] = account[1] = null;
+                
+                  if (transaction == 1)
+                {
 
-            if (transType == 0 && accountNo.Length == 1)
+                }
+                    if (transType == 0 && accounts.Length == 1)
             {
-                account[0] = SearchAccount(accountNo[0]);
+                account[0] = PrintAccount(accounts[0]);
 
                 if (account[0] == null)
                 {
@@ -92,15 +111,15 @@ namespace MidTermAssignment1
                 }
                 else
                 {
-                    account[0].deposite(amount);
-                    showDeposite(account[0], amount);
+                    accounts[0].deposite(amount);
+                    showDeposite(accounts[0], amount);
                 }
             }
 
-            else if (transType == 1 && accountNo.Length == 1)
+            else if (transType == 1 && accounts.Length == 1)
             {
 
-                account[0] = SearchAccount(accountNo[0]);
+                account[0] = SearchAccount(accounts[0]);
 
                 if (account[0] == null)
                 { Console.WriteLine("Account Not Found"); }
@@ -112,8 +131,8 @@ namespace MidTermAssignment1
             }
             else if (transType == 2 && accountNo.Length == 2)
             {
-                account[0] = SearchAccount(accountNo[0]); //Sender
-                account[1] = SearchAccount(accountNo[1]); //Receiver
+                account[0] = SearchAccount(accounts[0]); 
+                account[1] = SearchAccount(accounts[1]); 
 
                 if (account[0] == null || account[1] == null)
                 { Console.WriteLine("Account Not Found"); }
@@ -128,7 +147,7 @@ namespace MidTermAssignment1
                 Console.WriteLine("Invalid Operation");
         }
 
-        public void showDeposite(Account account, double amount)
+         void showDeposite(Account account, double amount)
         {
             Console.WriteLine("Account Number :" + account.AccountNo);
             Console.WriteLine("Account Name : " + account.AccountName);
@@ -138,7 +157,7 @@ namespace MidTermAssignment1
             Console.WriteLine();
         }
 
-        public void showWithdraw(Account account, double amount)
+         void showWithdraw(Account account, double amount)
         {
             Console.WriteLine("Account Number :" + account.AccountNo);
             Console.WriteLine("Account Name : " + account.AccountName);
@@ -148,7 +167,7 @@ namespace MidTermAssignment1
             Console.WriteLine();
         }
 
-        public void showTransfer(Account[] account, double amount)
+        void showTransfer(Account[] account, double amount)
         {
             Console.WriteLine("Sender Account Number :" + account[0].AccountNo);
             Console.WriteLine("Sender Account Name : " + account[0].AccountName);
