@@ -8,22 +8,19 @@ namespace MidTermAssignment1
 {
     class Program
     {
-        //public enum Transaction { Deposite, Withdraw, Transfer }
+  
         static void Main(string[] args)
         {
-            //Bank bank = new Bank("Jokers Bank Ltd", 100);
-            //Console.WriteLine(">>>>>>>>>> Jokers Bank Ltd <<<<<<<<<<");
-            //Console.WriteLine();
 
             Bank ourBank = new Bank("Developer's bank", 5);
             ourBank.AddAccount(new Account(1001, "Shakib", 2000, new Address(4, 10, "Dhaka", "Bangladesh")));
-            ourBank.AddAccount(new Account(3003, "Mushfiq", 5000, new Address(4, 10, "Sylhet", "Bangladesh")));
+            ourBank.AddAccount(account: new Account(3003, "Mushfiq", 5000, new Address(4, 10, "Sylhet", "Bangladesh")));
             ourBank.AddAccount(new Account(1002, "Tamim", 3000, new Address(7, 20, "Chittagong", "Bangladesh")));
-            //ourBank.PrintAllAccounts();
-            ourBank.SearchAccount(300);
+            ourBank.PrintAllAccounts();
+            //ourBank.SearchAccount(300);
 
         }
 
-        }
+        
     }
 }

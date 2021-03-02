@@ -15,13 +15,13 @@ namespace MidTermAssignment1
 
 		public static int count = 1101;
 
-		public Account()
+		public Account(int v)
 		{
 			accountNo = count;
 			count++;
 		}
 
-		public Account(string accountName, double balance, Address address) : this()
+        public Account(int v, string accountName, double balance, Address address) 
 		{
 
 			this.accountName = accountName;
@@ -90,7 +90,7 @@ namespace MidTermAssignment1
 		public void PrintAccount()
 		{
 			Console.WriteLine("Account No:{0}\nAccount Name:{1}\nBalance:{2}", this.accountNo, this.accountName, this.balance);
-			this.address.PrintAddress();
+            address.PrintAddress();
 		}
 	}
 }
